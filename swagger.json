@@ -1,0 +1,195 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API-Presidentielles",
+    "description": "Documentation de l'API-Presidentielles",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:5500",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "candidats",
+      "description": "Récupération des candidats"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/candidats": {
+      "get": {
+        "tags": ["candidats"],
+        "summary": "Récupérer la liste des candidats.",
+        "responses": {
+          "200": {
+            "description": "Liste des candidats.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "400": {
+            "description": "Erreur lors de la récupération des candidats."
+          }
+        }
+      }
+    },
+    "/candidats/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Identifiant du candidat.",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }
+      ],
+      "post": {
+        "tags": ["candidats"],
+        "summary": "Ajouter un nouveau candidat.",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Candidat a ajouter.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Candidat ajouté avec succès.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Erreur lors de l'ajout du candidat."
+          }
+        },
+        "model": {}
+      },
+      "delete": {
+        "tags": ["candidats"],
+        "summary": "Supprimer un candidat.",
+        "responses": {
+          "200": {
+            "description": "Candidat supprimé avec succès.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Erreur lors de la suppression du candidat."
+          }
+        }
+      },
+      "put": {
+        "tags": ["candidats"],
+        "summary": "Modifier un candidat.",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Candidat a modifier.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Candidat modifié avec succès.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Erreur lors de la modification du candidat."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": ["name", "_id", "companies"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "books": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "companies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "updateUser": {
+      "required": ["name", "companies"],
+      "properties": {
+        "isPublic": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "books": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "companies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    }
+  }
+}

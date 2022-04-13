@@ -8,6 +8,8 @@ const candidatRoutes = require('./controllers/candidatController');
 const voteRoutes = require('./controllers/voteController');
 const bodyParser = require('body-parser');
 
+const swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./swagger.json');
 
 /* Ajout du middleware bodyParser.json() à l'application. */
 app.use(bodyParser.json());
@@ -18,6 +20,14 @@ app.use(bodyParser.json());
 app.use('/candidats', candidatRoutes);
 /* Ajout des routes définies dans `voteRoutes.js` à l'application express. */
 app.use('/votes', voteRoutes);
+
+
+/* Un middleware qui sert l'interface utilisateur Swagger liée à votre document Swagger. */
+app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument)
+);
 
 
 
