@@ -118,6 +118,79 @@
           }
         }
       }
+    },
+    "/votes": {
+      "get": {
+        "tags": ["votes"],
+        "summary": "Récupérer la liste des votes.",
+        "responses": {
+          "200": {
+            "description": "Liste des votes.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Vote"
+              }
+            }
+          },
+          "400": {
+            "description": "Erreur lors de la récupération des votes."
+          }
+        }
+      }
+    },
+    "/votes/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Identifiant du vote.",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }
+      ],
+      "post": {
+        "tags": ["votes"],
+        "summary": "Ajouter un nouveau vote.",
+        "parameters": [
+          {
+            "name": "vote",
+            "in": "body",
+            "description": "Vote a ajouter.",
+            "schema": {
+              "$ref": "#/definitions/Vote"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vote ajouté avec succès.",
+            "schema": {
+              "$ref": "#/definitions/Vote"
+            }
+          },
+          "400": {
+            "description": "Erreur lors de l'ajout du vote."
+          }
+        },
+        "model": {}
+      },
+      "delete": {
+        "tags": ["votes"],
+        "summary": "Supprimer un vote.",
+        "responses": {
+          "200": {
+            "description": "Vote supprimé avec succès.",
+            "schema": {
+              "$ref": "#/definitions/Vote"
+            }
+          },
+          "400": {
+            "description": "Erreur lors de la suppression du vote."
+          }
+        }
+      }
     }
   },
   "definitions": {
