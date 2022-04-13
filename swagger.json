@@ -31,7 +31,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/candidats"
               }
             }
           },
@@ -44,12 +44,11 @@
     "/candidats/{id}": {
       "parameters": [
         {
-          "name": "id",
-          "in": "path",
-          "description": "Identifiant du candidat.",
-          "required": true,
-          "type": "integer",
-          "format": "int64"
+            "name": "id",
+            "in": "path",
+            "description": "Identifiant du candidat.",
+            "required": true,
+            "type": "integer"
         }
       ],
       "post": {
@@ -61,7 +60,7 @@
             "in": "body",
             "description": "Candidat a ajouter.",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/candidats"
             }
           }
         ],
@@ -85,7 +84,7 @@
           "200": {
             "description": "Candidat supprimé avec succès.",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/candidats"
             }
           },
           "400": {
@@ -102,7 +101,7 @@
             "in": "body",
             "description": "Candidat a modifier.",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/candidats"
             }
           }
         ],
@@ -110,7 +109,7 @@
           "200": {
             "description": "Candidat modifié avec succès.",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/candidats"
             }
           },
           "400": {
@@ -129,7 +128,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Vote"
+                "$ref": "#/definitions/votes"
               }
             }
           },
@@ -159,7 +158,7 @@
             "in": "body",
             "description": "Vote a ajouter.",
             "schema": {
-              "$ref": "#/definitions/Vote"
+              "$ref": "#/definitions/votes"
             }
           }
         ],
@@ -167,7 +166,7 @@
           "200": {
             "description": "Vote ajouté avec succès.",
             "schema": {
-              "$ref": "#/definitions/Vote"
+              "$ref": "#/definitions/votes"
             }
           },
           "400": {
@@ -183,7 +182,7 @@
           "200": {
             "description": "Vote supprimé avec succès.",
             "schema": {
-              "$ref": "#/definitions/Vote"
+              "$ref": "#/definitions/votes"
             }
           },
           "400": {
@@ -194,75 +193,42 @@
     }
   },
   "definitions": {
-    "User": {
-      "required": ["name", "_id", "companies"],
+    "candidats": {
+      "required": ["id", "nom", "prenom", "parti", "image"],
+      "type": "object",
       "properties": {
-        "_id": {
+        "id": {
           "type": "integer",
-          "uniqueItems": true
+          "format": "int64"
         },
-        "isPublic": {
-          "type": "boolean"
-        },
-        "name": {
+        "prenom": {
           "type": "string"
         },
-        "books": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              }
-            }
-          }
+        "nom": {
+          "type": "string"
         },
-        "companies": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "parti": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
         }
       }
     },
-    "updateUser": {
-      "required": ["name", "companies"],
+    "Votes": {
+      "required": ["date", "ip", "id_candidat"],
+      "type": "object",
       "properties": {
-        "isPublic": {
-          "type": "boolean"
-        },
-        "name": {
+        "date": {
           "type": "string"
         },
-        "books": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "number"
-              }
-            }
-          }
+        "ip": {
+          "type": "string"
         },
-        "companies": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "id_candidat": {
+          "type": "string"
         }
       }
-    },
-    "Users": {
-      "type": "array",
-      "$ref": "#/definitions/User"
     }
   }
 }
