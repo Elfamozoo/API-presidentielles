@@ -39,18 +39,7 @@
             "description": "Erreur lors de la récupération des candidats."
           }
         }
-      }
-    },
-    "/candidats/{id}": {
-      "parameters": [
-        {
-            "name": "id",
-            "in": "path",
-            "description": "Identifiant du candidat.",
-            "required": true,
-            "type": "integer"
-        }
-      ],
+      },
       "post": {
         "tags": ["candidats"],
         "summary": "Ajouter un nouveau candidat.",
@@ -65,10 +54,10 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "Candidat ajouté avec succès.",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/candidats"
             }
           },
           "400": {
@@ -76,7 +65,18 @@
           }
         },
         "model": {}
-      },
+      }
+    },
+    "/candidats/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Identifiant du candidat.",
+          "required": true,
+          "type": "integer"
+        }
+      ],
       "delete": {
         "tags": ["candidats"],
         "summary": "Supprimer un candidat.",
@@ -106,7 +106,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Candidat modifié avec succès.",
             "schema": {
               "$ref": "#/definitions/candidats"
@@ -143,7 +143,7 @@
         {
           "name": "id",
           "in": "path",
-          "description": "Identifiant du vote.",
+          "description": "Identifiant du candidat.",
           "required": true,
           "type": "integer",
           "format": "int64"
@@ -163,7 +163,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "Vote ajouté avec succès.",
             "schema": {
               "$ref": "#/definitions/votes"
@@ -182,7 +182,7 @@
           "200": {
             "description": "Vote supprimé avec succès.",
             "schema": {
-              "$ref": "#/definitions/votes"
+              "$ref": ""
             }
           },
           "400": {
@@ -215,14 +215,11 @@
         }
       }
     },
-    "Votes": {
+    "votes": {
       "required": ["date", "ip", "id_candidat"],
       "type": "object",
       "properties": {
         "date": {
-          "type": "string"
-        },
-        "ip": {
           "type": "string"
         },
         "id_candidat": {
