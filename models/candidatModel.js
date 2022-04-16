@@ -1,10 +1,5 @@
 const mongoose = require('mongoose');
 
-/* Création d'un nouveau modèle nommé `candidatModel` avec les propriétés suivantes :
-- `prénom` : string
-- 'nom' : string
-- 'parti' : string
-- `image` : string */
 const candidatModel = mongoose.model(
     "candidats",
     {
@@ -28,5 +23,4 @@ const candidatModel = mongoose.model(
 
 );
 
-/* Exportation du modèle vers le reste de l'application. */
 module.exports = candidatModel;

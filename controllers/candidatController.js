@@ -1,11 +1,7 @@
 const express = require('express')
-/* Création d'un nouvel objet routeur. */
 const router = express.Router();
-/* Importation du type ObjectID à partir de la bibliothèque mongoose. */
 const ObjectID = require('mongoose').Types.ObjectId;
-/* Importation du modèle à partir du dossier des modèles. */
 const candidatModel = require('../models/candidatModel')
-
 
 router.get('/', (req, res) => {
     candidatModel.find((err, candidats) => {
@@ -67,6 +63,5 @@ router.delete('/:id', (req, res) => {
     });
 
 });
-
 
 module.exports = router;

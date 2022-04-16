@@ -3,7 +3,6 @@ const router = express.Router();
 const ObjectID = require('mongoose').Types.ObjectId;
 const voteModel = require('../models/voteModel')
 
-/* Il s'agit d'un itinéraire qui renverra tous les votes. */
 router.get('/', (req, res) => {
     voteModel.find((err, votes) => {
         if (err) {
@@ -14,7 +13,6 @@ router.get('/', (req, res) => {
     })
 })
 
-/* Créer un nouveau vote pour un candidat spécifique. */
 router.post('/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID Invalide : " + req.params.id)
@@ -24,6 +22,7 @@ router.post('/:id', (req, res) => {
         ip: req.headers['X-Forwarded-For'] || req.socket.remoteAddress,
         id_candidat: req.params.id
     })
+
     vote.save((err, vote) => {
         if (err) {
             res.status(500).send(err)
@@ -33,7 +32,6 @@ router.post('/:id', (req, res) => {
     })
 })
 
-/* Ce code supprime un vote de la base de données. */
 router.delete('/:id', (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID Invalide : " + req.params.id)
