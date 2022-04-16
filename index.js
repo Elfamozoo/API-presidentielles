@@ -4,25 +4,28 @@ une bibliothèque JavaScript utilisée pour créer des serveurs Web. */
 const express = require('express')
 const app = express();
 require('./models/dbConfig');
+/* Importation des routes définies dans le fichier `candidatController.js`. */
 const candidatRoutes = require('./controllers/candidatController');
+/* Importation des routes définies dans le fichier `voteController.js`. */
 const voteRoutes = require('./controllers/voteController');
-const bodyParser = require('body-parser');
-
+/* Un middleware qui analyse le corps de la requête et le rend disponible dans l'objet de la requête. */
+app.use(express.urlencoded({ extended: true }));
+/* Un middleware qui sert l'interface utilisateur Swagger liée à votre document Swagger. */
 const swaggerUi = require('swagger-ui-express'),
+    /* Importation du fichier swagger.json que nous avons créé précédemment. */
     swaggerDocument = require('./swagger.json');
 
-/* Ajout du middleware bodyParser.json() à l'application. */
-app.use(bodyParser.json());
 
+app.use(express.json())
 
-
-/* Ajout des itinéraires définis dans `candidatRoutes.js` à l'application express. */
+/* Ajout des routes définies dans `candidatRoutes.js` à l'application express. */
+/* `app.use` est une méthode qui ajoute un middleware à l'application. */
 app.use('/candidats', candidatRoutes);
 /* Ajout des routes définies dans `voteRoutes.js` à l'application express. */
 app.use('/votes', voteRoutes);
 
 
-/* Un middleware qui sert l'interface utilisateur Swagger liée à votre document Swagger. */
+/* Ajout de l'interface utilisateur Swagger à l'application express. */
 app.use(
     '/api-docs',
     swaggerUi.serve,
